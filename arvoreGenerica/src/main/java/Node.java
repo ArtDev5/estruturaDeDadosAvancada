@@ -3,6 +3,10 @@ public class Node<T> {
     private Node<T> left;
     private Node<T> right;
 
+    public Node(T key) {
+        this.key = key;
+    }
+
     public T getKey() {
         return key;
     }
