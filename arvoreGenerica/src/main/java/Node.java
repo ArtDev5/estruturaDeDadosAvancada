@@ -34,9 +34,9 @@ public class Node<T> {
     @Override
     public String toString() {
         return "Node{" +
-                "key=" + key +
-                ", esq=" + left +
-                ", dir=" + right +
+                "key do No=" + key +
+                ", filho esquerdo=" + left +
+                ", filho direito=" + right +
                 '}';
     }
 }
