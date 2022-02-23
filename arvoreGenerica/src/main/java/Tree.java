@@ -67,15 +67,42 @@ public class Tree<T> {
         }
     }
 
-    public void getSubarvores(Node<T> currentNode) {
-        if (currentNode.getLeft() != null) {
-            System.out.println("Subárvore: " + currentNode.getKey());
-            getSubarvores(currentNode.getLeft());
+    public void getSubarvores(Node<T> currentNode){
+        ArrayList <T> subArvores = new ArrayList<T>();   
+        if(currentNode == root){
+            if(currentNode.getLeft() != null){
+                getSubarvores(currentNode.getLeft(), subArvores);
+            }
+            if(currentNode.getRight() != null){
+                getSubarvores(currentNode.getRight(), subArvores);
+            }
         }
+    }
 
-        if (currentNode.getRight() != null) {
-            System.out.println("Subárvore: " + currentNode.getKey());
-            getSubarvores(currentNode.getRight());
+    public void getSubarvores(Node<T> currentNode, ArrayList<T> subArvores){
+        if(currentNode == root){
+            if(currentNode.getLeft() != null){
+                getSubarvores(currentNode.getLeft(), subArvores);
+            }
+            if(currentNode.getRight() != null){
+                getSubarvores(currentNode.getRight(), subArvores);
+            }
+        }
+        if(currentNode.getLeft() != null){
+            if(!subArvores.contains(currentNode.getKey())){
+                subArvores.add(currentNode.getKey());
+                System.out.println("Sub Arvore: " + currentNode.getKey());
+                getSubarvores(currentNode.getLeft(), subArvores);
+            }
+            getSubarvores(currentNode.getLeft(), subArvores);
+        }
+        if(currentNode.getRight() != null){
+            if(!subArvores.contains(currentNode.getKey())){
+                subArvores.add(currentNode.getKey());
+                System.out.println("Sub Arvore: " + currentNode.getKey());
+                getSubarvores(currentNode.getRight(), subArvores);
+            }
+            getSubarvores(currentNode.getRight(), subArvores);
         }
     }
 
