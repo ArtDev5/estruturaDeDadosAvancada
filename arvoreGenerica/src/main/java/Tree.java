@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
 public class Tree<T> {
 
@@ -133,18 +132,25 @@ public class Tree<T> {
 
     //TODO D A altura de cada nó
 
-    //TODO E A profundidade de cada nó
-//    public int takeDepth(Node<T> root, Node<T> specificNode) {
-//        int i = 0;
-//        return i + foundNode(root, specificNode);
-//    }
+    public void takeDepth(Node<T> root) {
+        int number = 0;
+        ArrayList<NodeValues> results = foundNode(root, number, new ArrayList<>());
+        Collections.sort(results);
+        Collections.reverse(results);
+        results.forEach(it -> {
+            System.out.println("Node " + it.getKey() + " com profundidade: " + it.getValue());
+        });
+    }
 
-//    public Node<T> foundNode(Node<T> currentNode, T wantedKey) {
-//        if (currentNode == null) return null;
-//        if (currentNode.getKey() == wantedKey) return currentNode;
-//        if (currentNode.getLeft() != null) return foundNode(currentNode.getLeft(), wantedKey);
-//        return foundNode(currentNode.getRight(), wantedKey);
-//    }
+    public ArrayList<NodeValues> foundNode(Node<T> currentNode, int number, ArrayList<NodeValues> list) {
+        if (currentNode != null) {
+            list.add(new NodeValues(currentNode.getKey(), number));
+            list = foundNode(currentNode.getLeft(), number + 1, list);
+            list = foundNode(currentNode.getRight(), number + 1, list);
+        }
+
+        return list;
+    }
 
 
     //TODO F Os níveis de cada nó
