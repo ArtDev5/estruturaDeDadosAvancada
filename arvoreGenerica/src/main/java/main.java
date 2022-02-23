@@ -62,6 +62,8 @@ public class main {
         tree.getExternalsNodes(tree.getRoot());
         tree.getSubarvores(tree.getRoot());
 
+        System.out.println();
+        tree.takeDepth(tree.getRoot());
 //        System.out.println(tree.foundNode(tree.getRoot(), node8.getKey()));
     }
 }
