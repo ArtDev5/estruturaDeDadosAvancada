@@ -58,12 +58,17 @@ public class main {
         System.out.println();
         System.out.println();
         System.out.println(tree.toString());
+        System.out.println();
 
         tree.getExternalsNodes(tree.getRoot());
-        tree.getSubarvores(tree.getRoot());
+        System.out.println();
+//        tree.getSubarvores(tree.getRoot());
 
         System.out.println();
         tree.takeDepth(tree.getRoot());
+        System.out.println();
+        tree.getLevel(tree.getRoot());
+        tree.walkThroughTree(tree.getRoot());
 //        System.out.println(tree.foundNode(tree.getRoot(), node8.getKey()));
     }
 }

@@ -132,9 +132,9 @@ public class Tree<T> {
 
     //TODO D A altura de cada nó
 
+    //TODO quantityOfAncestors
     public void takeDepth(Node<T> root) {
-        int number = 0;
-        ArrayList<NodeValues> results = foundNode(root, number, new ArrayList<>());
+        ArrayList<NodeValues> results = findAncestry(root, 0, new ArrayList<>());
         Collections.sort(results);
         Collections.reverse(results);
         results.forEach(it -> {
@@ -142,16 +142,48 @@ public class Tree<T> {
         });
     }
 
-    public ArrayList<NodeValues> foundNode(Node<T> currentNode, int number, ArrayList<NodeValues> list) {
+    public void getLevel(Node<T> root) {
+        int number = 0;
+        ArrayList<NodeValues> results = findAncestry(root, number, new ArrayList<>());
+        Collections.sort(results);
+        Collections.reverse(results);
+        results.forEach(it -> {
+            System.out.println("Node " + it.getKey() + " com nível: " + it.getValue());
+        });
+    }
+
+    public ArrayList<NodeValues> findAncestry(Node<T> currentNode, int number, ArrayList<NodeValues> list) {
         if (currentNode != null) {
             list.add(new NodeValues(currentNode.getKey(), number));
-            list = foundNode(currentNode.getLeft(), number + 1, list);
-            list = foundNode(currentNode.getRight(), number + 1, list);
+            list = findAncestry(currentNode.getLeft(), number + 1, list);
+            list = findAncestry(currentNode.getRight(), number + 1, list);
         }
-
         return list;
     }
 
+    public void walkThroughTree(Node<T> currentNode) {
+        if (currentNode.getLeft() != null) {
+            findDescendants(currentNode, 0);
+            walkThroughTree(currentNode.getLeft());
+        }
+        if (currentNode.getRight() != null){
+            findDescendants(currentNode, 0);
+            walkThroughTree(currentNode.getRight());
+        }
+
+//        System.out.println(currentNode.getKey());
+    }
+
+    public void findDescendants(Node<T> currentNode, int number) {
+        if (currentNode.getLeft() != null) {
+            findDescendants(currentNode.getLeft(), number+1);
+        }
+        if (currentNode.getRight() != null){
+            findDescendants(currentNode.getRight(), number+1);
+        }
+
+        System.out.println("com altura de " + number);
+    }
 
     //TODO F Os níveis de cada nó
 
