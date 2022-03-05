@@ -127,21 +127,21 @@ public class Tree<T> {
                 || currentNode.getLeft() != null && currentNode.getRight() != null) {
             count+=1;
             list = findDescendants(currentNode, 0, new ArrayList<>());
-            System.out.print(currentNode.getKey() +" com altura " + list.get(0));
+            System.out.print("Node " + currentNode.getKey() +" com altura " + list.get(0));
             System.out.println();
             walkThroughTree(currentNode.getLeft());
         }
         if (currentNode.getRight() != null){
             list = findDescendants(currentNode, 0, new ArrayList<>());
             if (count == 0) {
-                System.out.print(currentNode.getKey() +" com altura " + list.get(0));
+                System.out.print("Node " + currentNode.getKey() +" com altura " + list.get(0));
                 System.out.println();
             }
             walkThroughTree(currentNode.getRight());
         }
 
         if (currentNode.getLeft() == null && currentNode.getRight() == null) {
-            System.out.println(currentNode.getKey() + " com altura 0");
+            System.out.println("Node " + currentNode.getKey() + " com altura 0");
         }
     }
 
