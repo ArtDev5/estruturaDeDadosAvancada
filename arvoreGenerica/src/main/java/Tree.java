@@ -146,7 +146,7 @@ public class Tree<T> {
     }
 
     public ArrayList<Integer> findDescendants(Node<T> currentNode, Integer number, ArrayList<Integer> list) {
-        if (currentNode.getLeft() == null && currentNode.getRight() == null || currentNode == null) {
+        if (currentNode.getLeft() == null && currentNode.getRight() == null) {
             if (list.isEmpty()) {
                 list.add(number);
             } else {
@@ -168,14 +168,11 @@ public class Tree<T> {
     }
 
     public void getDegreeNodes(Node<T> currentNode){
-        ArrayList<T> degreeNodes = new ArrayList<>();
         int degree = 0;
         if(currentNode.getLeft() != null){
-            degreeNodes.add(currentNode.getKey());
             degree++;
         }
         if(currentNode.getRight() != null){
-            degreeNodes.add(currentNode.getKey());
             degree++;
         }
         System.out.println("Nó " + currentNode.getKey() + " com grau: " + degree);
@@ -184,27 +181,6 @@ public class Tree<T> {
         }
         if(currentNode.getRight() != null){
             getDegreeNodes(currentNode.getRight());
-        }
-    }
-
-    public void getDegreeNodes(Node<T> currentNode, ArrayList<T> degreeNodes){
-        int degree = 0;
-        if(currentNode.getLeft() != null){
-            degreeNodes.add(currentNode.getKey());
-            degree++;
-        }
-        if(currentNode.getRight() != null){
-            degreeNodes.add(currentNode.getKey());
-            degree++;
-        }
-        if(!degreeNodes.contains(currentNode.getKey())){
-            System.out.println("Nó " + currentNode.getKey() + " com grau: " + degree);
-        }
-        if(currentNode.getLeft() != null){
-            getDegreeNodes(currentNode.getLeft(), degreeNodes);
-        }
-        if(currentNode.getRight() != null){
-            getDegreeNodes(currentNode.getRight(), degreeNodes);
         }
     }
 
