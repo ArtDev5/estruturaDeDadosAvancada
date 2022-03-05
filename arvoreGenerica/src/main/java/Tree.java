@@ -66,42 +66,42 @@ public class Tree<T> {
         }
     }
 
-    public void getSubarvores(Node<T> currentNode){
+    public void getSubTrees(Node<T> currentNode){
         ArrayList <T> subArvores = new ArrayList<T>();   
         if(currentNode == root){
             if(currentNode.getLeft() != null){
-                getSubarvores(currentNode.getLeft(), subArvores);
+                getSubTrees(currentNode.getLeft(), subArvores);
             }
             if(currentNode.getRight() != null){
-                getSubarvores(currentNode.getRight(), subArvores);
+                getSubTrees(currentNode.getRight(), subArvores);
             }
         }
     }
 
-    public void getSubarvores(Node<T> currentNode, ArrayList<T> subArvores){
+    public void getSubTrees(Node<T> currentNode, ArrayList<T> subArvores){
         if(currentNode == root){
             if(currentNode.getLeft() != null){
-                getSubarvores(currentNode.getLeft(), subArvores);
+                getSubTrees(currentNode.getLeft(), subArvores);
             }
             if(currentNode.getRight() != null){
-                getSubarvores(currentNode.getRight(), subArvores);
+                getSubTrees(currentNode.getRight(), subArvores);
             }
         }
         if(currentNode.getLeft() != null){
             if(!subArvores.contains(currentNode.getKey())){
                 subArvores.add(currentNode.getKey());
                 System.out.println("Sub Arvore: " + currentNode.getKey());
-                getSubarvores(currentNode.getLeft(), subArvores);
+                getSubTrees(currentNode.getLeft(), subArvores);
             }
-            getSubarvores(currentNode.getLeft(), subArvores);
+            getSubTrees(currentNode.getLeft(), subArvores);
         }
         if(currentNode.getRight() != null){
             if(!subArvores.contains(currentNode.getKey())){
                 subArvores.add(currentNode.getKey());
                 System.out.println("Sub Arvore: " + currentNode.getKey());
-                getSubarvores(currentNode.getRight(), subArvores);
+                getSubTrees(currentNode.getRight(), subArvores);
             }
-            getSubarvores(currentNode.getRight(), subArvores);
+            getSubTrees(currentNode.getRight(), subArvores);
         }
     }
 
@@ -188,6 +188,49 @@ public class Tree<T> {
     //TODO F Os níveis de cada nó
 
 
+
+    public void getDegreeNodes(Node<T> currentNode){
+        ArrayList<T> degreeNodes = new ArrayList<>();
+        int degree = 0;
+        if(currentNode.getLeft() != null){
+            degreeNodes.add(currentNode.getKey());
+            degree++;
+        }
+        if(currentNode.getRight() != null){
+            degreeNodes.add(currentNode.getKey());
+            degree++;
+        }
+        System.out.println("Nó " + currentNode.getKey() + " com grau: " + degree);
+        if(currentNode.getLeft() != null){
+            getDegreeNodes(currentNode.getLeft());
+        }
+        if(currentNode.getRight() != null){
+            getDegreeNodes(currentNode.getRight());
+        }
+
+    }
+
+    public void getDegreeNodes(Node<T> currentNode, ArrayList<T> degreeNodes){
+        int degree = 0;
+        if(currentNode.getLeft() != null){
+            degreeNodes.add(currentNode.getKey());
+            degree++;
+        }
+        if(currentNode.getRight() != null){
+            degreeNodes.add(currentNode.getKey());
+            degree++;
+        }
+        if(!degreeNodes.contains(currentNode.getKey())){
+            System.out.println("Nó " + currentNode.getKey() + " com grau: " + degree);
+        }
+        if(currentNode.getLeft() != null){
+            getDegreeNodes(currentNode.getLeft(), degreeNodes);
+        }
+        if(currentNode.getRight() != null){
+            getDegreeNodes(currentNode.getRight(), degreeNodes);
+        }
+        
+    }
     @Override
     public String toString() {
         return "Tree{" +

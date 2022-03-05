@@ -70,5 +70,10 @@ public class main {
         tree.getLevel(tree.getRoot());
         tree.walkThroughTree(tree.getRoot());
 //        System.out.println(tree.foundNode(tree.getRoot(), node8.getKey()));
+        System.out.println("");
+        tree.getDegreeNodes(tree.getRoot());
+        System.out.println("");
+        tree.getSubTrees(tree.getRoot());
+
     }
 }
