@@ -16,7 +16,6 @@ public class Tree<T> {
         this.root = root;
     }
 
-    //TODO refatorar root dos métodos
     public Node<T> insert(Node<T> root, Node<T> newNode) {
 
         if (root == null) return newNode;
@@ -41,18 +40,6 @@ public class Tree<T> {
         return root;
     }
 
-    private Node<T> availableNode(Node<T> currentNode) {
-        if (currentNode == null) return null;
-        if (currentNode.getLeft() == null && currentNode.getRight() == null) {
-            return currentNode;
-        }
-
-        if (currentNode.getLeft() != null) {
-            return availableNode(currentNode.getLeft());
-        }
-        return availableNode(currentNode.getRight());
-    }
-
     public void getExternalsNodes(Node<T> currentNode) {
         if (currentNode.getLeft() == null && currentNode.getRight() == null) {
             System.out.println("Nó folha: " + currentNode);
@@ -67,7 +54,7 @@ public class Tree<T> {
     }
 
     public void getSubTrees(Node<T> currentNode){
-        ArrayList <T> subArvores = new ArrayList<T>();   
+        ArrayList <T> subArvores = new ArrayList<T>();
         if(currentNode == root){
             if(currentNode.getLeft() != null){
                 getSubTrees(currentNode.getLeft(), subArvores);
@@ -105,34 +92,6 @@ public class Tree<T> {
         }
     }
 
-
-//    public Node<T> insertNode(Node<T> root, Node<T> newNode, PositionEnum positionEnum) {
-//        if (root == null) {
-//            return newNode;
-//        }
-//
-//        if (PositionEnum.LEFT.equals(positionEnum) && root.getLeft() == null) {
-//            root.setLeft(
-//                    insertNode(root.getLeft(), newNode, PositionEnum.EMPTY));
-//        } else if (PositionEnum.RIGHT.equals(positionEnum) && root.getRight() == null) {
-//            root.setRight(
-//                    insertNode(root.getRight(), newNode, PositionEnum.EMPTY));
-//        } else {
-//            if (root.getLeft() == null) {
-//                root.setLeft(insertNode(root.getLeft(), newNode, positionEnum));
-//            } else if (root.getRight() == null) {
-//                root.setRight(insertNode(root.getRight(), newNode, positionEnum));
-//            } else {
-//                insertNode(root.getLeft(), newNode, positionEnum);
-//            }
-//        }
-//
-//        return root;
-//    }
-
-    //TODO D A altura de cada nó
-
-    //TODO quantityOfAncestors
     public void takeDepth(Node<T> root) {
         ArrayList<NodeValues> results = findAncestry(root, 0, new ArrayList<>());
         Collections.sort(results);
@@ -162,32 +121,51 @@ public class Tree<T> {
     }
 
     public void walkThroughTree(Node<T> currentNode) {
-        if (currentNode.getLeft() != null) {
-            findDescendants(currentNode, 0);
+        ArrayList<Integer> list;
+        int count = 0;
+        if (currentNode.getLeft() != null && currentNode.getRight() == null
+                || currentNode.getLeft() != null && currentNode.getRight() != null) {
+            count+=1;
+            list = findDescendants(currentNode, 0, new ArrayList<>());
+            System.out.print(currentNode.getKey() +" com altura " + list.get(0));
+            System.out.println();
             walkThroughTree(currentNode.getLeft());
         }
         if (currentNode.getRight() != null){
-            findDescendants(currentNode, 0);
+            list = findDescendants(currentNode, 0, new ArrayList<>());
+            if (count == 0) {
+                System.out.print(currentNode.getKey() +" com altura " + list.get(0));
+                System.out.println();
+            }
             walkThroughTree(currentNode.getRight());
         }
 
-//        System.out.println(currentNode.getKey());
+        if (currentNode.getLeft() == null && currentNode.getRight() == null) {
+            System.out.println(currentNode.getKey() + " com altura 0");
+        }
     }
 
-    public void findDescendants(Node<T> currentNode, int number) {
-        if (currentNode.getLeft() != null) {
-            findDescendants(currentNode.getLeft(), number+1);
-        }
-        if (currentNode.getRight() != null){
-            findDescendants(currentNode.getRight(), number+1);
+    public ArrayList<Integer> findDescendants(Node<T> currentNode, Integer number, ArrayList<Integer> list) {
+        if (currentNode.getLeft() == null && currentNode.getRight() == null || currentNode == null) {
+            if (list.isEmpty()) {
+                list.add(number);
+            } else {
+                if (list.get(0) < number) {
+                    list.remove(0);
+                    list.add(number);
+                }
+            }
+        } else {
+            if (currentNode.getLeft() != null) {
+                findDescendants(currentNode.getLeft(), number+1, list);
+            }
+            if (currentNode.getRight() != null){
+                findDescendants(currentNode.getRight(), number+1, list);
+            }
         }
 
-        System.out.println("com altura de " + number);
+        return list;
     }
-
-    //TODO F Os níveis de cada nó
-
-
 
     public void getDegreeNodes(Node<T> currentNode){
         ArrayList<T> degreeNodes = new ArrayList<>();
@@ -207,7 +185,6 @@ public class Tree<T> {
         if(currentNode.getRight() != null){
             getDegreeNodes(currentNode.getRight());
         }
-
     }
 
     public void getDegreeNodes(Node<T> currentNode, ArrayList<T> degreeNodes){
@@ -229,8 +206,8 @@ public class Tree<T> {
         if(currentNode.getRight() != null){
             getDegreeNodes(currentNode.getRight(), degreeNodes);
         }
-        
     }
+
     @Override
     public String toString() {
         return "Tree{" +

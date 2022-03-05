@@ -68,6 +68,7 @@ public class main {
         tree.takeDepth(tree.getRoot());
         System.out.println();
         tree.getLevel(tree.getRoot());
+        System.out.println();
         tree.walkThroughTree(tree.getRoot());
 //        System.out.println(tree.foundNode(tree.getRoot(), node8.getKey()));
         System.out.println("");
