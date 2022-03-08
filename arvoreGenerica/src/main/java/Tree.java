@@ -112,16 +112,6 @@ public class Tree<T> {
         results.forEach(it -> System.out.println("Node " + it.getKey() + " com nível: " + it.getValue()));
     }
 
-    public void getSubTrees(Node<T> currentNode){
-        if(currentNode == root){
-            if(currentNode.getLeft() != null){
-                getSubTrees(currentNode.getLeft(), new ArrayList<>());
-            }
-            if(currentNode.getRight() != null){
-                getSubTrees(currentNode.getRight(), new ArrayList<>());
-            }
-        }
-    }
 
     private ArrayList<NodeValues> findAncestries(Node<T> currentNode, int number, ArrayList<NodeValues> list) {
         if (currentNode != null) {
@@ -151,30 +141,21 @@ public class Tree<T> {
         return list;
     }
 
-    private void getSubTrees(Node<T> currentNode, ArrayList<T> subTrees){
-        if(currentNode == root){
-            if(currentNode.getLeft() != null){
-                getSubTrees(currentNode.getLeft(), subTrees);
-            }
-            if(currentNode.getRight() != null){
-                getSubTrees(currentNode.getRight(), subTrees);
-            }
-        }
+    public void getSubTrees(Node<T> currentNode){
+        
+        int count = 0;
         if(currentNode.getLeft() != null){
-            if(!subTrees.contains(currentNode.getKey())){
-                subTrees.add(currentNode.getKey());
+            count +=1;
+            if(currentNode != root){
                 System.out.println("Sub Arvore: " + currentNode.getKey());
-                getSubTrees(currentNode.getLeft(), subTrees);
             }
-            getSubTrees(currentNode.getLeft(), subTrees);
+            getSubTrees(currentNode.getLeft());
         }
         if(currentNode.getRight() != null){
-            if(!subTrees.contains(currentNode.getKey())){
-                subTrees.add(currentNode.getKey());
+            if(count == 0){
                 System.out.println("Sub Arvore: " + currentNode.getKey());
-                getSubTrees(currentNode.getRight(), subTrees);
             }
-            getSubTrees(currentNode.getRight(), subTrees);
+            getSubTrees(currentNode.getRight());
         }
     }
 
