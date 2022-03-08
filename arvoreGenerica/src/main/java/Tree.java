@@ -53,120 +53,6 @@ public class Tree<T> {
         }
     }
 
-    public void getSubTrees(Node<T> currentNode){
-        ArrayList <T> subArvores = new ArrayList<T>();
-        if(currentNode == root){
-            if(currentNode.getLeft() != null){
-                getSubTrees(currentNode.getLeft(), subArvores);
-            }
-            if(currentNode.getRight() != null){
-                getSubTrees(currentNode.getRight(), subArvores);
-            }
-        }
-    }
-
-    public void getSubTrees(Node<T> currentNode, ArrayList<T> subArvores){
-        if(currentNode == root){
-            if(currentNode.getLeft() != null){
-                getSubTrees(currentNode.getLeft(), subArvores);
-            }
-            if(currentNode.getRight() != null){
-                getSubTrees(currentNode.getRight(), subArvores);
-            }
-        }
-        if(currentNode.getLeft() != null){
-            if(!subArvores.contains(currentNode.getKey())){
-                subArvores.add(currentNode.getKey());
-                System.out.println("Sub Arvore: " + currentNode.getKey());
-                getSubTrees(currentNode.getLeft(), subArvores);
-            }
-            getSubTrees(currentNode.getLeft(), subArvores);
-        }
-        if(currentNode.getRight() != null){
-            if(!subArvores.contains(currentNode.getKey())){
-                subArvores.add(currentNode.getKey());
-                System.out.println("Sub Arvore: " + currentNode.getKey());
-                getSubTrees(currentNode.getRight(), subArvores);
-            }
-            getSubTrees(currentNode.getRight(), subArvores);
-        }
-    }
-
-    public void takeDepth(Node<T> root) {
-        ArrayList<NodeValues> results = findAncestry(root, 0, new ArrayList<>());
-        Collections.sort(results);
-        Collections.reverse(results);
-        results.forEach(it -> {
-            System.out.println("Node " + it.getKey() + " com profundidade: " + it.getValue());
-        });
-    }
-
-    public void getLevel(Node<T> root) {
-        int number = 0;
-        ArrayList<NodeValues> results = findAncestry(root, number, new ArrayList<>());
-        Collections.sort(results);
-        Collections.reverse(results);
-        results.forEach(it -> {
-            System.out.println("Node " + it.getKey() + " com nível: " + it.getValue());
-        });
-    }
-
-    public ArrayList<NodeValues> findAncestry(Node<T> currentNode, int number, ArrayList<NodeValues> list) {
-        if (currentNode != null) {
-            list.add(new NodeValues(currentNode.getKey(), number));
-            list = findAncestry(currentNode.getLeft(), number + 1, list);
-            list = findAncestry(currentNode.getRight(), number + 1, list);
-        }
-        return list;
-    }
-
-    public void walkThroughTree(Node<T> currentNode) {
-        ArrayList<Integer> list;
-        int count = 0;
-        if (currentNode.getLeft() != null && currentNode.getRight() == null
-                || currentNode.getLeft() != null && currentNode.getRight() != null) {
-            count+=1;
-            list = findDescendants(currentNode, 0, new ArrayList<>());
-            System.out.print("Node " + currentNode.getKey() +" com altura " + list.get(0));
-            System.out.println();
-            walkThroughTree(currentNode.getLeft());
-        }
-        if (currentNode.getRight() != null){
-            list = findDescendants(currentNode, 0, new ArrayList<>());
-            if (count == 0) {
-                System.out.print("Node " + currentNode.getKey() +" com altura " + list.get(0));
-                System.out.println();
-            }
-            walkThroughTree(currentNode.getRight());
-        }
-
-        if (currentNode.getLeft() == null && currentNode.getRight() == null) {
-            System.out.println("Node " + currentNode.getKey() + " com altura 0");
-        }
-    }
-
-    public ArrayList<Integer> findDescendants(Node<T> currentNode, Integer number, ArrayList<Integer> list) {
-        if (currentNode.getLeft() == null && currentNode.getRight() == null) {
-            if (list.isEmpty()) {
-                list.add(number);
-            } else {
-                if (list.get(0) < number) {
-                    list.remove(0);
-                    list.add(number);
-                }
-            }
-        } else {
-            if (currentNode.getLeft() != null) {
-                findDescendants(currentNode.getLeft(), number+1, list);
-            }
-            if (currentNode.getRight() != null){
-                findDescendants(currentNode.getRight(), number+1, list);
-            }
-        }
-
-        return list;
-    }
-
     public void getDegreeNodes(Node<T> currentNode){
         int degree = 0;
         if(currentNode.getLeft() != null){
@@ -181,6 +67,114 @@ public class Tree<T> {
         }
         if(currentNode.getRight() != null){
             getDegreeNodes(currentNode.getRight());
+        }
+    }
+
+    public void getHeight(Node<T> currentNode) {
+        ArrayList<Integer> list;
+        int count = 0;
+        if (currentNode.getLeft() != null && currentNode.getRight() == null
+                || currentNode.getLeft() != null && currentNode.getRight() != null) {
+            count+=1;
+            list = findDescendants(currentNode, 0, new ArrayList<>());
+            System.out.print("Node " + currentNode.getKey() +" com altura " + list.get(0));
+            System.out.println();
+            getHeight(currentNode.getLeft());
+        }
+        if (currentNode.getRight() != null){
+            if (count == 0) {
+                list = findDescendants(currentNode, 0, new ArrayList<>());
+                System.out.print("Node " + currentNode.getKey() +" com altura " + list.get(0));
+                System.out.println();
+            }
+            getHeight(currentNode.getRight());
+        }
+
+        if (currentNode.getLeft() == null && currentNode.getRight() == null) {
+            System.out.println("Node " + currentNode.getKey() + " com altura 0");
+        }
+    }
+
+    public void takeDepths(Node<T> root) {
+        ArrayList<NodeValues> results = findAncestries(root, 0, new ArrayList<>());
+
+        Collections.sort(results);
+        Collections.reverse(results);
+        results.forEach(it -> System.out.println("Node " + it.getKey() + " com profundidade: " + it.getValue()));
+
+    }
+
+    public void getLevels(Node<T> root) {
+        ArrayList<NodeValues> results = findAncestries(root, 0, new ArrayList<>());
+
+        Collections.sort(results);
+        Collections.reverse(results);
+        results.forEach(it -> System.out.println("Node " + it.getKey() + " com nível: " + it.getValue()));
+    }
+
+    public void getSubTrees(Node<T> currentNode){
+        if(currentNode == root){
+            if(currentNode.getLeft() != null){
+                getSubTrees(currentNode.getLeft(), new ArrayList<>());
+            }
+            if(currentNode.getRight() != null){
+                getSubTrees(currentNode.getRight(), new ArrayList<>());
+            }
+        }
+    }
+
+    private ArrayList<NodeValues> findAncestries(Node<T> currentNode, int number, ArrayList<NodeValues> list) {
+        if (currentNode != null) {
+            list.add(new NodeValues(currentNode.getKey(), number));
+            list = findAncestries(currentNode.getLeft(), number + 1, list);
+            list = findAncestries(currentNode.getRight(), number + 1, list);
+        }
+        return list;
+    }
+
+    private ArrayList<Integer> findDescendants(Node<T> currentNode, Integer number, ArrayList<Integer> list) {
+        if (currentNode.getLeft() == null && currentNode.getRight() == null) {
+            if (list.isEmpty()) {
+                list.add(number);
+            } else {
+                list.add(Math.max(list.get(0), number));
+            }
+        } else {
+            if (currentNode.getLeft() != null) {
+                findDescendants(currentNode.getLeft(), number+1, list);
+            }
+            if (currentNode.getRight() != null){
+                findDescendants(currentNode.getRight(), number+1, list);
+            }
+        }
+
+        return list;
+    }
+
+    private void getSubTrees(Node<T> currentNode, ArrayList<T> subTrees){
+        if(currentNode == root){
+            if(currentNode.getLeft() != null){
+                getSubTrees(currentNode.getLeft(), subTrees);
+            }
+            if(currentNode.getRight() != null){
+                getSubTrees(currentNode.getRight(), subTrees);
+            }
+        }
+        if(currentNode.getLeft() != null){
+            if(!subTrees.contains(currentNode.getKey())){
+                subTrees.add(currentNode.getKey());
+                System.out.println("Sub Arvore: " + currentNode.getKey());
+                getSubTrees(currentNode.getLeft(), subTrees);
+            }
+            getSubTrees(currentNode.getLeft(), subTrees);
+        }
+        if(currentNode.getRight() != null){
+            if(!subTrees.contains(currentNode.getKey())){
+                subTrees.add(currentNode.getKey());
+                System.out.println("Sub Arvore: " + currentNode.getKey());
+                getSubTrees(currentNode.getRight(), subTrees);
+            }
+            getSubTrees(currentNode.getRight(), subTrees);
         }
     }
 

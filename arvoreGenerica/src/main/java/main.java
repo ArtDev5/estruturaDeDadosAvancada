@@ -38,42 +38,24 @@ public class main {
         tree.setRoot(
                 tree.insert(tree.getRoot(), node11));
 
-//        tree.setRoot(
-//                tree.insertNode(tree.getRoot(), node1, PositionEnum.RIGHT));
-//        tree.setRoot(
-//                tree.insertNode(tree.getRoot(), node2, PositionEnum.LEFT));
-//        tree.setRoot(
-//                tree.insertNode(tree.getRoot(), node3, PositionEnum.LEFT));
-//        tree.setRoot(
-//                tree.insertNode(tree.getRoot(), node4, PositionEnum.RIGHT));
-//        tree.setRoot(
-//                tree.insertNode(tree.getRoot(), node5, PositionEnum.RIGHT));
-//        tree.setRoot(
-//                tree.insert(tree.getRoot(), node6, PositionEnum.RIGHT));
-//        tree.setRoot(
-//                tree.insert(tree.getRoot(), node7, PositionEnum.LEFT));
-//        tree.setRoot(
-//                tree.insert(tree.getRoot(), node8, PositionEnum.LEFT));
+        System.out.println(tree);
 
         System.out.println();
-        System.out.println();
-        System.out.println(tree.toString());
-        System.out.println();
-
         tree.getExternalsNodes(tree.getRoot());
-        System.out.println();
-//        tree.getSubarvores(tree.getRoot());
 
         System.out.println();
-        tree.takeDepth(tree.getRoot());
-        System.out.println();
-        tree.getLevel(tree.getRoot());
-        System.out.println();
-        tree.walkThroughTree(tree.getRoot());
-//        System.out.println(tree.foundNode(tree.getRoot(), node8.getKey()));
-        System.out.println("");
         tree.getDegreeNodes(tree.getRoot());
-        System.out.println("");
+
+        System.out.println();
+        tree.getHeight(tree.getRoot());
+
+        System.out.println();
+        tree.takeDepths(tree.getRoot());
+
+        System.out.println();
+        tree.getLevels(tree.getRoot());
+
+        System.out.println();
         tree.getSubTrees(tree.getRoot());
 
     }
