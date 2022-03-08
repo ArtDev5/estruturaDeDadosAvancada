@@ -127,7 +127,10 @@ public class Tree<T> {
             if (list.isEmpty()) {
                 list.add(number);
             } else {
-                list.add(Math.max(list.get(0), number));
+                if (list.get(0) < number) {
+                    list.remove(0);
+                    list.add(number);
+                }
             }
         } else {
             if (currentNode.getLeft() != null) {
